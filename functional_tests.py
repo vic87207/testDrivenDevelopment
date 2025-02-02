@@ -10,7 +10,7 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_can_start_a_list_and_retrieve_it_later(self):
+    def test_can_start_a_todo_list(self):
         # Lauren has heard about a cool new online to-do list app. She goes to check the home
         # page
         self.browser.get("http://localhost:8000")
@@ -18,9 +18,9 @@ class NewVisitorTest(unittest.TestCase):
         # the new django page vs the book from 2017 has different words in the browser title.
         # She notices the page title and header mentioned todo list
         self.assertIn("TO-DO", self.browser.title)
-        self.fail("Finish the test!")
-        # She is invited to enter a to-do item right away
 
+        # She is invited to enter a to-do item right away
+        self.fail("Finish the test!")
         # She types "Buy new journal for 2025" into the text box (One of Lauren's hobby is
         # junk journaling)
 
@@ -42,4 +42,4 @@ class NewVisitorTest(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(warnings="ignore")
+    unittest.main()
