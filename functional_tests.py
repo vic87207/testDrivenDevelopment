@@ -37,7 +37,10 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element(By.ID, "id_list_table")
         rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertTrue(any(row.text == "1: Buy new journal for 2025" for row in rows))
+        self.assertTrue(
+            any(row.text == "1: Buy new journal for 2025" for row in rows),
+            "New to-do item did not appear in table",
+        )
         # There's still a text box inviting her to add another item. She enters "use items in the
         # house to make junk journal" (Lauren uses newspaper and magazine cutouts for her junk
         # journals)
