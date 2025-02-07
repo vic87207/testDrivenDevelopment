@@ -20,7 +20,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # the new django page vs the book from 2017 has different words in the browser title.
         # She notices the page title and header mentioned todo list
-        self.assertIn("TO-DO", self.browser.title)
+        self.assertIn("To-Do", self.browser.title)
         header_text = self.browser.find_element(By.TAG_NAME, "h1").text
         self.assertIn("To-Do", header_text)
         # She is invited to enter a to-do item right away
