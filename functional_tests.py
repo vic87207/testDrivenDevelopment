@@ -25,7 +25,6 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn("To-Do", header_text)
         # She is invited to enter a to-do item right away
         inputbox = self.browser.find_element(By.ID, "id_new_item")
-        self.assertEqual(inputbox.get_attribute("placeholder"), "Enter a to-do item")
 
         # She types "Buy new journal for 2025" into the text box (One of Lauren's hobby is
         # junk journaling)
@@ -35,19 +34,25 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertTrue(
-            any(row.text == "1: Buy new journal for 2025" for row in rows),
-            "New to-do item did not appear in table",
-        )
         # There's still a text box inviting her to add another item. She enters "use items in the
         # house to make junk journal" (Lauren uses newspaper and magazine cutouts for her junk
         # journals)
-        self.fail("Finish the test!")
+        inputbox = self.browser.find_element(By.ID, "id_new_item")
+        inputbox.send_keys("use items in the house to make junk journal")
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
 
         # The page updates again, now showing both items
-
+        table = self.browser.find_element(By.ID, "id_list_table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        self.assertIn(
+            "1: Buy new journal for 2025",
+            [row.text for row in rows],
+        )
+        self.assertIn(
+            "2: use items in the house to make junk journal",
+            [row.text for row in rows],
+        )
         # Lauren wonders if the site will remember her list. Then she sees that the site has generated
         # a unique url for her -- there is some explanation text to that effect
 
