@@ -13,6 +13,11 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element(By.ID, "id_list_table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        self.assertIn(row_text, [row_text for row in rows])
+
     def test_can_start_a_todo_list(self):
         # Lauren has heard about a cool new online to-do list app. She goes to check the home
         # page
@@ -43,15 +48,9 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
 
         # The page updates again, now showing both items
-        table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertIn(
-            "1: Buy new journal for 2025",
-            [row.text for row in rows],
-        )
-        self.assertIn(
-            "2: use items in the house to make junk journal",
-            [row.text for row in rows],
+        self.check_for_row_in_list_table("1. Buy new journal for 2025")
+        self.check_for_row_in_list_table(
+            "2. use items in the house to make junk journal"
         )
         # Lauren wonders if the site will remember her list. Then she sees that the site has generated
         # a unique url for her -- there is some explanation text to that effect
